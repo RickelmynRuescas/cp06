@@ -1,0 +1,153 @@
+
+$primary-color: #3498db;
+$secondary-color: #2ecc71;
+$font-color: #333;
+$menu-items: ("About", "Books", "Contact");
+$breakpoint-mobile: 768px;
+
+@mixin flex-center($direction: row, $justify: center, $align: center) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin rounded($radius: 10px) {
+  border-radius: $radius;
+}
+
+@mixin button-styles($color) {
+  background-color: $color;
+  padding: 10px 20px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+@mixin box-shadow($x: 0px, $y: 2px, $blur: 5px, $color: rgba(0, 0, 0, 0.2)) {
+  box-shadow: $x $y $blur $color;
+}
+
+@each $item in $menu-items {
+  .menu__#{$item} {
+    color: $primary-color;
+&:hover {
+      color: $secondary-color;
+      @include box-shadow(0, 4px, 10px, rgba(0, 0, 0, 0.3));
+      transform: translateY(-3px);
+    }
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: $font-color;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.books__header {
+  @include flex-center(column);
+  background-color: $primary-color;
+  color: white;
+  padding: 20px;
+  h1 {
+    font-size: 2.5rem;
+  }
+  .menu {
+    @include flex-center;
+    a {
+      text-decoration: none;
+      margin: 0 15px;
+      padding: 10px;
+      color: white;
+      transition: color 0.3s, transform 0.2s;
+&:hover {
+        color: $secondary-color;
+        transform: scale(1.1);
+      }
+    }
+  }
+  
+  @media (max-width: $breakpoint-mobile) {
+    h1 {
+      font-size: 2rem;
+    }
+    .menu {
+      flex-direction: column;
+      a {
+        margin: 10px 0;
+      }
+    }
+  }
+}
+
+.about {
+  background-color: white;
+  padding: 20px;
+  margin: 20px;
+  @include rounded(15px);
+  @include box-shadow();
+  @include flex-center(column, center, center); 
+  img {
+    width: 100px;
+    height: 100px;
+    margin-top: 15px;
+  }
+}
+
+.books {
+  background-color: $primary-color;
+  color: white;
+  padding: 20px;
+  h2 {
+    font-size: 2rem;
+  }
+  .book-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    div {
+      @include box-shadow();
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+&:hover {
+        transform: scale(1.05);
+        @include box-shadow(0, 4px, 15px, rgba(0, 0, 0, 0.3));
+      }
+    }
+  }
+}
+
+.contact {
+  padding: 20px;
+  background-color: white;
+  margin: 20px;
+  @include rounded(10px);
+  @include box-shadow();
+  @include flex-center(column, center, center);
+  a {
+    color: $primary-color;
+    text-decoration: none;
+&:hover {
+      color: $secondary-color;
+      transform: translateY(-3px);
+    }
+  }
+}
+
+.button {
+  @include button-styles($primary-color);
+&:hover {
+    background-color: $secondary-color;
+    transform: scale(1.05);
+    @include box-shadow(0, 4px, 15px, rgba(0, 0, 0, 0.3));
+  }
+}
+
